@@ -25,7 +25,7 @@ func (t testStruct) Cmp(b testStruct) int {
 	return -1
 }
 
-func (t testStruct) Copy() testStruct {
+func (t testStruct) Clone() testStruct {
 	c := t
 	return c
 }
@@ -141,11 +141,11 @@ func (e *tsSlice) Prepend(n testStruct) {
 	e.Insert(n, 0)
 }
 
-// Copy will return a copy of tsSlice calling the Copy function on each item
-func (e tsSlice) Copy() tsSlice {
+// Clonet will return a copy of tsSlice calling the Clone function on each item
+func (e tsSlice) Clone() tsSlice {
 	f := make(tsSlice, len(e))
 	for i := range e {
-		f[i] = e[i].Copy()
+		f[i] = e[i].Clone()
 	}
 	return f
 }
@@ -162,14 +162,14 @@ func TestBasic(t *testing.T) {
 		t.Errorf("%v\n", ts)
 	}
 
-	cc := ts.Copy()
+	cc := ts.Clone()
 	if len(cc) != len(ts) {
-		t.Errorf("Copy: expected len(cc) == len(ts) got %v\n", len(cc))
+		t.Errorf("Clone: expected len(cc) == len(ts) got %v\n", len(cc))
 		t.Errorf("%v\n", cc)
 	}
 	cc.Cut(0, len(cc))
 	if len(cc) > 0 {
-		t.Errorf("Copy Cut: expected len(cc) == 0 got %v\n", len(cc))
+		t.Errorf("Clone Cut: expected len(cc) == 0 got %v\n", len(cc))
 		t.Errorf("%v\n", cc)
 	}
 
@@ -194,6 +194,13 @@ func TestBasic(t *testing.T) {
 		t.Errorf("Cut: expected len(ts) == 2 got %v\n", len(ts))
 		t.Errorf("%v\n", ts)
 	}
+
+	tt := tsSlice(make([]testStruct, 0, 5))
+	tt.Append(testStruct{s: "e", i: 5})
+	tt.Append(testStruct{s: "d", i: 4})
+	tt.Append(testStruct{s: "c", i: 3})
+	tt.Append(testStruct{s: "b", i: 2})
+	tt.Append(testStruct{s: "a", i: 1})
 }
 
 func TestSort(t *testing.T) {

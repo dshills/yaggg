@@ -21,8 +21,8 @@ The user Type must implement 3 functions in the following forms:
 func (a MyType)Cmp(b MyType) int
 Cmp must return 0 for equality, 1 when a > b, -1 when a < b
 
-func (a MyType)Copy() MyType
-Copy must return a deep copy of MyType
+func (a MyType)Clone() MyType
+Clone must return a deep copy of MyType
 
 func (a MyType)Clear() MyType
 Clear must return a valid empty MyType
@@ -164,11 +164,11 @@ func (e *{{.Slice}}) Prepend(n {{.Type}}) {
 	e.Insert(n, 0)
 }
 
-// Copy will return a copy of {{.Slice}} calling the Copy function on each item
-func (e {{.Slice}}) Copy() {{.Slice}} {
+// Clone will return a copy of {{.Slice}} calling the Clone function on each item
+func (e {{.Slice}}) Clone() {{.Slice}} {
 	f := make({{.Slice}}, len(e))
 	for i := range e {
-		f[i] = e[i].Copy()
+		f[i] = e[i].Clone()
 	}
 	return f
 }
