@@ -64,6 +64,44 @@ Using Go Generate
 	//go:generate yagg --output mytypemap.go --generate map --container mytypemap --value mytype --key string
 
 ## Sample
+```Go
+package main
+
+//go:generate yaggg --output boguses.go --container boguses --value bogus
+//go:generate yaggg --output bogusmap.go --container bogusmap --value bogus --key string --generate map
+
+type bogus struct {
+	ID    int
+	Bool  bool
+	Int   int
+	Float float64
+	Slice []string
+}
+
+func (b bogus) Cmp(j bogus) int {
+	if b.ID == j.ID {
+		return 0
+	}
+	if b.ID > j.ID {
+		return 1
+	}
+	return -1
+}
+
+func (b bogus) Clone() bogus {
+	c := b
+	return c
+}
+
+func (b bogus) Clear() bogus {
+	return bogus{}
+}
+
+func main() {
+
+}
+```
+
 ## To Do
 Almost everything
 
