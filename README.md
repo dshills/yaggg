@@ -1,4 +1,4 @@
-# yaggg [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/dshills/yaggg)
+# yaggg
 >Yet Another Go Generic Generator
 
 ## Overview
